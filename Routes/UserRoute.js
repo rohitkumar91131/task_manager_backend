@@ -124,7 +124,8 @@ router.post("/login", async (req, res) => {
     res.cookie("refresh_token",refresh_token,{
       httpOnly : true,
       secure : true,
-      maxAge : 1000*60*60*24*7
+      maxAge : 1000*60*60*24*7,
+      sameSite : "None"
     })
 
     return res.status(200).json({ 
@@ -171,13 +172,13 @@ router.post("/logout",verifyToken ,(req,res)=>{
     httpOnly: true,
     secure : true,
     maxAge : 1000*60*60*24*7 ,
-    sameSite : "none"
+    sameSite : "None"
   })
   res.clearCookie("refresh_token",{ 
     httpOnly: true,
     secure : true,
     maxAge : 1000*60*60*24*7 ,
-    sameSite : "none"
+    sameSite : "None"
   })
   res.json({
     success : true,
@@ -210,13 +211,13 @@ router.post("/grant_new_access_token",verifyToken ,async(req,res)=>{
     res.cookie("access_token",new_access_tokens,{
       httpOnly : true,
       secure : true,
-      sameSite : "none",
+      sameSite : "None",
       maxAge : 1000*60*60*24*7
     })   
     res.cookie("refresh_token",new_refresh_tokens,{
       httpOnly : true,
       secure : true,
-      sameSite : "none",
+      sameSite : "None",
       maxAge : 1000*60*60*24*7
     })
     res.json({

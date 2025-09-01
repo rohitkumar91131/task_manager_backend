@@ -7,10 +7,16 @@ const verifyToken = (req , res , next) =>{
     const access_token = req.cookies.access_token;
     const refresh_token = req.cookies.refresh_token;
 
-    if(!refresh_token || !access_token){
+    if(!refresh_token ){
         return res.json({
             success : false,
-            msg : "No cookies found"
+            msg : "No Refresh found"
+        })
+    }
+    if(!access_token ){
+        return res.json({
+            success : false,
+            msg : "No Access found"
         })
     }
     try{
