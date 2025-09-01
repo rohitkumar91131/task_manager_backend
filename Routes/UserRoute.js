@@ -167,11 +167,17 @@ router.get("/get_Name",verifyToken,async(req,res)=>{
 
 
 router.post("/logout",verifyToken ,(req,res)=>{
-  res.clearCookie("jwt_token",{ 
+  res.clearCookie("access_token",{ 
     httpOnly: true,
     secure : true,
     maxAge : 1000*60*60*24*7 ,
-    sameSite : "None"
+    sameSite : "none"
+  })
+  res.clearCookie("refresh_token",{ 
+    httpOnly: true,
+    secure : true,
+    maxAge : 1000*60*60*24*7 ,
+    sameSite : "none"
   })
   res.json({
     success : true,
@@ -181,7 +187,7 @@ router.post("/logout",verifyToken ,(req,res)=>{
 
 router.post("/grant_new_access_token",verifyToken ,async(req,res)=>{
   try{
-    const user = await User.findOne({refresh_token});
+    const user = await User.findOne({refresh_token : req.user_refresh_token.refresh_token});
     const new_access_tokens = jwt.sign(
        {
         user_id : user._id
