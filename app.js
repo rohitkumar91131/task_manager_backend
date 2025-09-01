@@ -22,6 +22,9 @@ app.use("/user",userRoutes);
 app.use("/task", taskRoutes);
 
 
+app.get("/", (req, res) => res.send("Hello Backend"));
+
+
 app.listen(3000,()=>{
     console.log("App is running on port "+3000);
 })
