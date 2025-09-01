@@ -30,6 +30,7 @@ router.post("/new_task",verifyToken,async(req, res)=>{
             msg :"Task is empty"
         })
     }
+    console.log(req.user.user_id)
     try{
         const newTask = await Task.create({
             content,
